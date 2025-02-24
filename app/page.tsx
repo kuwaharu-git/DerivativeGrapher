@@ -9,8 +9,8 @@ import { parse, derivative, simplify } from "mathjs"
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false })
 
 export default function Home() {
-  const [n, setN] = useState(9)
-  const [funcInput, setFuncInput] = useState("sin(x) * exp(x / 10) + 0.1 * x^2")
+  const [n, setN] = useState(3)
+  const [funcInput, setFuncInput] = useState("x^2")
   const [currentFunc, setCurrentFunc] = useState(funcInput)
 
   // 関数の定義
@@ -70,7 +70,7 @@ export default function Home() {
   const x = Array.from({ length: 221 }, (_, i) => -11 + i * 0.1)
 
   // ドット値のリスト (-10 から 10)
-  const dots = Array.from({ length: n }, (_, i) => -10 + i * (20 / (n - 1)))
+  const dots = Array.from({ length: n }, (_, i) => Math.round(-10 + i * (20 / (n - 1))))
 
   // サブプロットの作成
   const rows = Math.ceil(n / 3)
@@ -204,7 +204,7 @@ export default function Home() {
           id="n-input"
           type="number"
           value={n}
-          onChange={(e) => setN(Math.max(1, Math.min(15, Number.parseInt(e.target.value) || 1)))}
+          onChange={(e) => setN(Math.max(2, Math.min(9, Number.parseInt(e.target.value) || 2)))}
           className="border border-gray-300 rounded px-2 py-1"
         />
       </div>
