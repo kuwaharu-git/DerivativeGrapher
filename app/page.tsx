@@ -123,6 +123,29 @@ export default function Home() {
       t: 80, // 上部のマージンを増やす
       pad: 4,
     },
+    annotations: dots.flatMap((dot, i) => [
+      {
+        text: `x = ${dot.toFixed(2)}, y = ${f(dot).toFixed(2)}`,
+        xref: `x${i + 1}`,
+        yref: `y${i + 1}`,
+        x: dot,
+        y: f(dot),
+        showarrow: true,
+        arrowhead: 2,
+        ax: 0,
+        ay: -40,
+        font: { size: 12, color: "black" },
+      },
+      {
+        text: `y = ${f_prime(dot).toFixed(2)}x + ${(f(dot) - f_prime(dot) * dot).toFixed(2)}`,
+        xref: `x${i + 1}`,
+        yref: `y${i + 1}`,
+        x: 0.5,
+        y: 1.05,
+        showarrow: false,
+        font: { size: 12, color: "black" },
+      },
+    ]),
     ...Object.fromEntries(
       dots.flatMap((dot, i) => [
         [
@@ -140,30 +163,6 @@ export default function Home() {
             title: "y",
             domain: [1 - Math.floor(i / 3 + 1) / rows + 0.05, 1 - Math.floor(i / 3) / rows - 0.05],
             anchor: `x${i + 1}`,
-          },
-        ],
-        [
-          `annotations[${i * 2}]`,
-          {
-            text: `x = ${dot.toFixed(2)}`,
-            xref: `x${i + 1}`,
-            yref: `y${i + 1}`,
-            x: 0.5,
-            y: 1.12,
-            showarrow: false,
-            font: { size: 12, color: "black" },
-          },
-        ],
-        [
-          `annotations[${i * 2 + 1}]`,
-          {
-            text: `y = ${f_prime(dot).toFixed(2)}x + ${(f(dot) - f_prime(dot) * dot).toFixed(2)}`,
-            xref: `x${i + 1}`,
-            yref: `y${i + 1}`,
-            x: 0.5,
-            y: 1.05,
-            showarrow: false,
-            font: { size: 12, color: "red" },
           },
         ],
       ]),
